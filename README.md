@@ -11,7 +11,7 @@
 | first_name        | string  | null:false |
 | family_name(kana) | string  | null:false |
 | first_name(kana)  | string  | null:false |
-| birthday          | integer | null:false |
+| birthday          | date    | null:false |
 
 ### Association
 
@@ -20,20 +20,20 @@
 
 ## items テーブル
 
-| Column           | Type       | Options                      |
-| ---------------- | ---------- | ---------------------------- |
-| user_id          | references | null:false, foreign_key:true |
-| item_picture     | string     | null:false                   |
-| item_name        | string     | null:false                   |
-| item_explanation | text       | null:false                   |
-| item_price       | integer    | null:false                   |
-| item_category    | integer    | null:false                   |
-| item_quality     | integer    | null:false                   |
-| delivery_fee     | integer    | null:false                   |
-| shipping_area    | integer    | null:false                   |
-| shipping_date    | integer    | null:false                   |
-| good_point       | integer    |                              |
-| sold_out         | boolean    | null:false                   |
+| Column        | Type       | Options                      |
+| --------------| ---------- | ---------------------------- |
+| user_id       | references | null:false, foreign_key:true |
+| image         | string     | null:false                   |
+| name          | string     | null:false                   |
+| explanation   | text       | null:false                   |
+| price         | integer    | null:false                   |
+| category      | integer    | null:false                   |
+| quality       | integer    | null:false                   |
+| delivery_fee  | integer    | null:false                   |
+| shipping_area | integer    | null:false                   |
+| shipping_date | integer    | null:false                   |
+| good_point    | integer    |                              |
+| sold_out      | boolean    | null:false                   |
 
 ### Association
 
@@ -49,7 +49,7 @@
 | postal_code      | string     | null:false                   |
 | prefectures      | integer    | null:false                   |
 | city and address | string     | null:false                   |
-| building         | string     | null:false                   |
+| building         | string     |                              |
 | phone_number     | string     | null:false                   |
 
 ### Association
