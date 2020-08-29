@@ -22,7 +22,7 @@
 
 | Column        | Type       | Options                      |
 | --------------| ---------- | ---------------------------- |
-| user_id       | references | null:false, foreign_key:true |
+| user          | references | null:false, foreign_key:true |
 | image         | string     | null:false                   |
 | name          | string     | null:false                   |
 | explanation   | text       | null:false                   |
@@ -33,7 +33,6 @@
 | shipping_area | integer    | null:false                   |
 | shipping_date | integer    | null:false                   |
 | good_point    | integer    |                              |
-| sold_out      | boolean    | null:false                   |
 
 ### Association
 
@@ -42,17 +41,29 @@
 
 ## purchase_histories テーブル
 
-| Column           | Type       | Options                      |
-| ---------------- | ---------- | ---------------------------- |
-| user_id          | references | null:false, foreign_key:true |
-| item_id          | references | null:false, foreign_key:true |
-| postal_code      | string     | null:false                   |
-| prefectures      | integer    | null:false                   |
-| city and address | string     | null:false                   |
-| building         | string     |                              |
-| phone_number     | string     | null:false                   |
+| Column       | Type       | Options                      |
+| ------------ | ---------- | ---------------------------- |
+| user         | references | null:false, foreign_key:true |
+| item         | references | null:false, foreign_key:true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
+- belongs_to :address
+
+## address テーブル
+
+| Column           | Type       | Options                      |
+| ---------------- | ---------- | ---------------------------- |
+| purchase_history | references | null:false                   |
+| postal_code      | string     | null:false                   |
+| prefectures      | integer    | null:false                   |
+| city             | string     | null:false                   |
+| address          | string     | null:false                   |
+| building         | string     |                              |
+| phone_number     | string     | null:false                   |
+
+### Association
+
+- has_many :purchase_histories
