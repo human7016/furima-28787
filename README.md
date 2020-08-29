@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column            | Type    | Options    |
-| ----------------- | ------- | ---------- |
-| nickname          | string  | null:false |
-| email             | string  | null:false |
-| password          | string  | null:false |
-| family_name       | string  | null:false |
-| first_name        | string  | null:false |
-| family_name(kana) | string  | null:false |
-| first_name(kana)  | string  | null:false |
-| birthday          | date    | null:false |
+| Column           | Type    | Options    |
+| ---------------- | ------- | ---------- |
+| nickname         | string  | null:false |
+| email            | string  | null:false |
+| password         | string  | null:false |
+| family_name      | string  | null:false |
+| first_name       | string  | null:false |
+| family_name_kana | string  | null:false |
+| first_name_kana  | string  | null:false |
+| birthday         | date    | null:false |
 
 ### Association
 
@@ -37,7 +37,7 @@
 ### Association
 
 - belongs_to :user
-- has_one :purchase_history
+- has_one    :purchase_history
 
 ## purchase_histories テーブル
 
@@ -50,9 +50,9 @@
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :address
+- has_one    :address
 
-## address テーブル
+## addresses テーブル
 
 | Column           | Type       | Options                      |
 | ---------------- | ---------- | ---------------------------- |
@@ -66,4 +66,4 @@
 
 ### Association
 
-- has_many :purchase_histories
+- belongs_to :purchase_history
