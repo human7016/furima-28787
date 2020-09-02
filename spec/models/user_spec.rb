@@ -19,9 +19,14 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Nickname can't be blank")
       end
       it "メールアドレスが空だと登録できない" do 
-        @user.password = nil
+        @user.email = nil
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password can't be blank")
+        expect(@user.errors.full_messages).to include("Email can't be blank")
+      end
+      it "メールアドレスに@がないと登録できない" do
+        @user.email = "test_at_sample.com"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it "メールアドレスが重複すると登録できない" do
         @user.save
@@ -29,6 +34,11 @@ RSpec.describe User, type: :model do
         user2.email = @user.email 
         user2.valid?
         expect(user2.errors.full_messages).to include("Email has already been taken")
+      end
+      it "パスワードが空だと登録できない" do
+        @user.password = nil
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password can't be blank")
       end
       it "パスワードが5文字以下だと登録できない" do
         @user.password = "ab123"
