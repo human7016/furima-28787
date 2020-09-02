@@ -9,6 +9,11 @@ class ItemsController < ApplicationController
 
   def create
     Item.create(tweet_params)
+    if @article.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   private
