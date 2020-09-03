@@ -23,7 +23,6 @@
 | Column           | Type       | Options                      |
 | -----------------| ---------- | ---------------------------- |
 | user             | references | null:false, foreign_key:true |
-| image            | string     | null:false                   |
 | name             | string     | null:false                   |
 | explanation      | text       | null:false                   |
 | price            | integer    | null:false                   |
@@ -38,6 +37,7 @@
 
 - belongs_to :user
 - has_one    :purchase_history
+- has_one_attached :image
 
 ## purchase_histories テーブル
 
