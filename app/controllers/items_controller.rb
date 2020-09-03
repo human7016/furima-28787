@@ -8,8 +8,8 @@ class ItemsController < ApplicationController
   end
 
   def create
-    Item.create(tweet_params)
-    if @article.save
+    @item = Item.new(item_params)
+    if @item.save
       redirect_to root_path
     else
       render :new
@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
 
   private
 
-  def item_paramas
-    params.require(:item).permit(:image, :name, :explanation, :price, :category, :quality, :delivery_fee, :shipping_area, :shipping_date).merge(user_id:current_user.id)
+  def item_params
+    params.require(:item).permit(:image, :name, :explanation, :price, :category_id, :quality_id, :delivery_fee_id, :shipping_area_id, :shipping_date_id).merge(user_id:current_user.id)
   end
 end
