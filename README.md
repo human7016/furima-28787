@@ -20,24 +20,24 @@
 
 ## items テーブル
 
-| Column        | Type       | Options                      |
-| --------------| ---------- | ---------------------------- |
-| user          | references | null:false, foreign_key:true |
-| image         | string     | null:false                   |
-| name          | string     | null:false                   |
-| explanation   | text       | null:false                   |
-| price         | integer    | null:false                   |
-| category      | integer    | null:false                   |
-| quality       | integer    | null:false                   |
-| delivery_fee  | integer    | null:false                   |
-| shipping_area | integer    | null:false                   |
-| shipping_date | integer    | null:false                   |
-| good_point    | integer    |                              |
+| Column           | Type       | Options                      |
+| -----------------| ---------- | ---------------------------- |
+| user             | references | null:false, foreign_key:true |
+| name             | string     | null:false                   |
+| explanation      | text       | null:false                   |
+| price            | integer    | null:false                   |
+| category_id      | integer    | null:false                   |
+| quality_id       | integer    | null:false                   |
+| delivery_fee_id  | integer    | null:false                   |
+| shipping_area_id | integer    | null:false                   |
+| shipping_date_id | integer    | null:false                   |
+| good_point       | integer    |                              |
 
 ### Association
 
 - belongs_to :user
 - has_one    :purchase_history
+- has_one_attached :image
 
 ## purchase_histories テーブル
 
