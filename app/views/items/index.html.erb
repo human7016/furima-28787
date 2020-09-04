@@ -155,9 +155,11 @@
             <%= image_tag item.image.variant(resize:'232.64x232.64'), class: 'item-image' if item.image.attached?%>
 
             <%# 商品が売れていればsold outと表示 %>
-            <div class='sold-out'>
-              <span>Sold Out!!</span>
-            </div>
+            <%unless item.purchase_history == nil%>
+              <div class='sold-out'>
+                <span>Sold Out!!</span>
+              </div>
+            <%end%>
 
           </div>
           <div class='item-info'>

@@ -4,11 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # Association
   has_many :items
+  has_many :purchase_histories
 
-    #英字1字以上数字1字以上が含まれているときにマッチする変数
+  # 英字1字以上数字1字以上が含まれているときにマッチする変数
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
 
+  # validates
   validates :nickname, presence:true
   validates :email, presence:true, format:{with:/.+[@].+/}
   validates :password, presence:true, format:{with:PASSWORD_REGEX}
