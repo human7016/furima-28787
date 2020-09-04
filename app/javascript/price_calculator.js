@@ -8,6 +8,7 @@ function check(){
 
   price.addEventListener("input", () => {
     //priceに数値が入力された時の処理
+    console.log(price)
     price_tax = price.value / 10;
     price_tax_integer = parseInt(price_tax, 10);
     price_profit = price.value - price_tax_integer;
