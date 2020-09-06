@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :find, only: [:show, :edit, :update]
   def index
     @item = Item.all.order(created_at: :DESC)
   end
@@ -8,8 +9,8 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
-    if @item.save
+    item = Item.new(item_params)
+    if item.save
       redirect_to root_path
     else
       render :new
@@ -17,16 +18,13 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   def update
-    item = Item.find(params[:id])
-    if item.update(item_params)
+    if @item.update(item_params)
       redirect_to root_path
     else
       render :edit
@@ -37,5 +35,10 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:image, :name, :explanation, :price, :category_id, :quality_id, :delivery_fee_id, :shipping_area_id, :shipping_date_id).merge(user_id: current_user.id)
+  end
+
+  # 特定のアクションのときにbefore_actionで読み込む
+  def find
+    @item = Item.find(params[:id])
   end
 end
