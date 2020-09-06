@@ -28,9 +28,9 @@
     <%# カレントユーザーが出品者の場合 %>
     <% if user_signed_in? %>
       <% if current_user.id == @item.user.id %>
-        <%= link_to '商品の編集', edit_item_path, method: :get, class: "item-red-btn" %>
+        <%= link_to '商品の編集', edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
         <p class='or-text'>or</p>
-        <%= link_to '削除', "#", method: :delete, class:'item-destroy' %>
+        <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
         
       <%# カレントユーザーが出品者でない場合で売り切れでない場合 %>
       <% elsif @item.purchase_history == nil %>
