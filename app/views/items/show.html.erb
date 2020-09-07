@@ -9,7 +9,7 @@
     <div class='item-img-content'>
       <%= image_tag @item.image.variant(resize:'500x500'), class: 'item-box-image'%>
       <%# 商品が売れている場合は、sold outを表示しましょう %>
-      <% if @item.purchase_history = nil %>
+      <% unless @item.purchase_history == nil %>
       <div class='sold-out'>
         <span>Sold Out!!</span>
       </div>
@@ -31,11 +31,12 @@
         <%= link_to '商品の編集', edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
         <p class='or-text'>or</p>
         <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
-        
-      <%# カレントユーザーが出品者でない場合で売り切れでない場合 %>
-      <% elsif @item.purchase_history == nil %>
-        <%= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
       <% end %>
+    <%end%>
+
+    <%# カレントユーザーが出品者でない場合で売り切れでない場合 %>
+    <% if @item.purchase_history == nil %>
+      <%= link_to '購入画面に進む', item_purchase_histories_path(@item.id) ,class:"item-red-btn"%>
     <% end %>
 
     <div class="item-explain-box">
