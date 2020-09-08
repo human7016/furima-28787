@@ -18,6 +18,6 @@ class UserOrder
   end
 
   def save
-    PurchaseHistory.create(user_id:current_user.id, item_id:item_id)
+    PurchaseHistory.create(user_id:current_user.id, item_id:@item.id)
     Address.create(postal_code:postal_code, prefectures:prefectures, city:city, address:address, building:building, phone_number:phone_number)
 end
