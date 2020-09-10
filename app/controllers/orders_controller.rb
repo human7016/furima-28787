@@ -18,7 +18,6 @@ class OrdersController < ApplicationController
       @order.save
       return redirect_to root_path
     else
-      binding.pry
       render 'index'
     end
   end
@@ -47,7 +46,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_af1efa431ab6bae0fec963d4"  # PAY.JPテスト秘密鍵
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # PAY.JPテスト秘密鍵
     @item = Item.find(params[:item_id])
     Payjp::Charge.create(
       amount: @item.price,  # 商品の値段
