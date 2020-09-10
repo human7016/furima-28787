@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
       @order.save
       return redirect_to root_path
     else
+      binding.pry
       render 'index'
     end
   end

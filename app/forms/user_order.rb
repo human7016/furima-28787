@@ -11,7 +11,7 @@ class UserOrder
     validates :prefectures_id, numericality: { other_than: 1 }
     validates :city, format:{with: /\A[ぁ-んァ-ン一-龥]+\z/ }
     validates :address
-    validates :phone_number, format:{with: /\A\d+[-]?\d+[-]?\d+\z/}
+    validates :phone_number, format:{with: /\A\d{10,11}\z/}
     validates :token
   end
 
@@ -19,6 +19,6 @@ class UserOrder
     #購入履歴を保存
     purchase_history = PurchaseHistory.create(user_id:user_id, item_id:item_id)
     #住所情報を保存
-    Address.create(postal_code:postal_code, prefectures_id:prefectures_id, city:city, address:address, building:building, phone_number:phone_number.gsub('-', ''), purchase_history_id:purchase_history.id)
+    Address.create(postal_code:postal_code, prefectures_id:prefectures_id, city:city, address:address, building:building, phone_number:phone_number, purchase_history_id:purchase_history.id)
   end
 end
