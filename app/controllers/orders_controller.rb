@@ -11,9 +11,9 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @item = Item.find(params[:item_id])
     @order = UserOrder.new(order_params)
-    @token = Token.new(token_params) #tokenが有効か判断
-    if @token.valid?
+    if @order.valid?
       pay_item
       @order.save
       return redirect_to root_path
@@ -31,14 +31,14 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    item = Item.find(params[:item_id])
-    if current_user.id == item.user.id || item.purchase_histroy != nil
+    @item = Item.find(params[:item_id])
+    if current_user.id == @item.user.id || @item.purchase_history != nil
       redirect_to root_path
     end
   end
 
   def order_params
-    params.require(:user_order).permit(:postal_code, :prefectures, :city, :address, :building, :phone_number)
+    params.permit(:postal_code, :prefectures_id, :city, :address, :building, :phone_number, :item_id, :token).merge(user_id:current_user.id)
   end
 
   def token_params
@@ -47,8 +47,9 @@ class OrdersController < ApplicationController
 
   def pay_item
     Payjp.api_key = "sk_test_af1efa431ab6bae0fec963d4"  # PAY.JPテスト秘密鍵
+    @item = Item.find(params[:item_id])
     Payjp::Charge.create(
-      amount: order_params[:price],  # 商品の値段
+      amount: @item.price,  # 商品の値段
       card: order_params[:token],    # カードトークン
       currency:'jpy'                 # 通貨の種類(日本円)
     )

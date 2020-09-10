@@ -36,7 +36,7 @@
 
     <%# カレントユーザーが出品者でない場合で売り切れでない場合 %>
     <% if @item.purchase_history == nil %>
-      <%= link_to '購入画面に進む', item_purchase_histories_path(@item.id) ,class:"item-red-btn"%>
+      <%= link_to '購入画面に進む', item_orders_path(@item.id) ,class:"item-red-btn"%>
     <% end %>
 
     <div class="item-explain-box">

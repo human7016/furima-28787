@@ -1,23 +1,24 @@
 class UserOrder
 
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefectures, :city, :address, :building, :phone_number 
+  attr_accessor :postal_code, :prefectures_id, :city, :address, :building, :phone_number, :item_id, :user_id, :token 
 
-  with_opthions presence: true do
-    #purchase_historiesテーブルに保存する値
-    validates :user_id
+  with_options presence: true do
+    #purchase_historiesテーブルに保存する値(user_idはパラメータに入ってないのでバリデーションを加えない)
     validates :item_id
     #addressesテーブルに保存する値
-    phone_number.gsub(/-/,'')
     validates :postal_code, format:{with: /\A\d{3}[-]\d{4}\z/ }
-    validates :prefectures, numericality: { other_than: 1 }
+    validates :prefectures_id, numericality: { other_than: 1 }
     validates :city, format:{with: /\A[ぁ-んァ-ン一-龥]+\z/ }
     validates :address
-    validates :building
     validates :phone_number, format:{with: /\A\d+[-]?\d+[-]?\d+\z/}
+    validates :token
   end
 
   def save
-    PurchaseHistory.create(user_id:current_user.id, item_id:@item.id)
-    Address.create(postal_code:postal_code, prefectures:prefectures, city:city, address:address, building:building, phone_number:phone_number)
+    #購入履歴を保存
+    purchase_history = PurchaseHistory.create(user_id:user_id, item_id:item_id)
+    #住所情報を保存
+    Address.create(postal_code:postal_code, prefectures_id:prefectures_id, city:city, address:address, building:building, phone_number:phone_number.gsub('-', ''), purchase_history_id:purchase_history.id)
+  end
 end
