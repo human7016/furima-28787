@@ -4,5 +4,6 @@ class PurchaseHistory < ApplicationRecord
   belongs_to :item
 
   # validates
-  validates :user_id, :item_id, presence: true
+  validates :user_id, presence: true
+  validates :item_id, presence: true
 end

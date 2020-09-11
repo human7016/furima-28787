@@ -16,12 +16,12 @@ RSpec.describe PurchaseHistory, type: :model do
       it '商品のidがなければ登録できない' do
         @purchase_history.item_id = nil
         @purchase_history.valid?
-        expect(@purchase_history.errors.full_messages).to include("Item must exist")
+        expect(@purchase_history.errors.full_messages).to include('Item must exist')
       end
       it '購入者のidがなければ登録できない' do
         @purchase_history.user_id = nil
         @purchase_history.valid?
-        expect(@purchase_history.errors.full_messages).to include("User must exist")
+        expect(@purchase_history.errors.full_messages).to include('User must exist')
       end
     end
   end
