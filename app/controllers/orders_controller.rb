@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find, only: [:index, :create, :move_to_index]
+  before_action :find_item, only: [:index, :create, :move_to_index, :pay_item]
   before_action :move_to_user_session
   before_action :move_to_index
 
@@ -31,8 +31,8 @@ class OrdersController < ApplicationController
     redirect_to root_path if current_user.id == @item.user.id || !@item.purchase_history.nil?
   end
 
-  def find
-    @item = Item.fing(params[:item_id])
+  def find_item
+    @item = Item.find(params[:item_id])
   end
 
   def order_params
@@ -41,7 +41,6 @@ class OrdersController < ApplicationController
 
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # PAY.JPテスト秘密鍵
-    @item = Item.find(params[:item_id])
     Payjp::Charge.create(
       amount: @item.price, # 商品の値段
       card: order_params[:token], # カードトークン
