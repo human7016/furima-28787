@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
+  before_action :find, only: [:index, :create, :move_to_index]
   before_action :move_to_user_session
   before_action :move_to_index
 
   def index
-    @item = Item.find(params[:item_id])
   end
 
   def new
@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order = UserOrder.new(order_params)
     if @order.valid?
       pay_item
@@ -29,8 +28,11 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    @item = Item.find(params[:item_id])
     redirect_to root_path if current_user.id == @item.user.id || !@item.purchase_history.nil?
+  end
+
+  def find
+    @item = Item.fing(params[:item_id])
   end
 
   def order_params
