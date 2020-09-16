@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :find, only: [:show, :edit, :update, :destroy]
+  before_action :find_item, only: [:show, :edit, :update, :destroy]
   def index
     @item = Item.all.order(created_at: :DESC)
   end
@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
   end
 
   # 特定のアクションのときにbefore_actionで読み込む
-  def find
+  def find_item
     @item = Item.find(params[:id])
   end
 end
