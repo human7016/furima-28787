@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
   private
 
   def find_item
-    @item = Item.find(params[:item_id])
+    @item = Item.find(params[:item_id]) 
   end
 
   def move_to_user_session
