@@ -4,9 +4,6 @@ class OrdersController < ApplicationController
   before_action :move_to_index
 
   def index
-  end
-
-  def new
     @order = UserOrder.new
   end
 
@@ -15,13 +12,17 @@ class OrdersController < ApplicationController
     if @order.valid?
       pay_item
       @order.save
-      redirect_to root_path
+      return redirect_to root_path
     else
       render 'index'
     end
   end
 
   private
+
+  def find_item
+    @item = Item.find(params[:item_id])
+  end
 
   def move_to_user_session
     redirect_to new_user_session_path unless user_signed_in?
@@ -31,12 +32,8 @@ class OrdersController < ApplicationController
     redirect_to root_path if current_user.id == @item.user.id || !@item.purchase_history.nil?
   end
 
-  def find_item
-    @item = Item.find(params[:item_id])
-  end
-
   def order_params
-    params.permit(:postal_code, :prefectures_id, :city, :address, :building, :phone_number, :item_id, :token).merge(user_id: current_user.id)
+    params.require(:user_order).permit(:postal_code, :prefectures_id, :city, :address, :building, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
   end
 
   def pay_item

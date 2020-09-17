@@ -9,9 +9,10 @@ class ItemsController < ApplicationController
   end
 
   def create
-    item = Item.new(item_params)
-    if item.save
-      redirect_to root_path
+    @item = Item.new(item_params)
+    if @item.valid?
+      @item.save
+      return redirect_to root_path
     else
       render :new
     end
